@@ -1,0 +1,20 @@
+/* Custom CSS for Admin Panel - Tailwind CSS Edition */
+
+/* Styles yang tidak bisa ditangani oleh Tailwind CSS */
+
+/* Transisi khusus */
+.transition-hover-y {
+    transition: transform 0.3s ease;
+}
+
+.transition-hover-y:hover {
+    transform: translateY(-5px);
+}
+
+/* Kelas khusus yang tidak ada di Tailwind CSS */
+
+/* Token display - untuk tampilan token monospace */
+.token-display {
+    font-family: monospace;
+    word-break: break-all;
+}

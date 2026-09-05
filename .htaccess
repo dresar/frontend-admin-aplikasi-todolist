@@ -1,0 +1,48 @@
+# Mengaktifkan mesin rewrite
+RewriteEngine On
+
+# Mencegah akses langsung ke direktori
+Options -Indexes
+
+# Mencegah akses langsung ke file PHP di direktori includes dan models
+RewriteRule ^(includes|models|config)/.*\.php$ - [F,L]
+
+# Mencegah akses ke file .env jika ada
+<Files .env>
+Order allow,deny
+Deny from all
+</Files>
+
+# Mencegah akses ke file .htaccess
+<Files .htaccess>
+Order allow,deny
+Deny from all
+</Files>
+
+# Mencegah akses ke file dengan ekstensi tertentu
+<FilesMatch "\.(log|json|lock|md|sql|sh|bat)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Mengatur header keamanan
+<IfModule mod_headers.c>
+    # Mencegah clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    # Mengaktifkan proteksi XSS di browser
+    Header set X-XSS-Protection "1; mode=block"
+    # Mencegah MIME-sniffing
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Mengatur PHP settings
+<IfModule mod_php7.c>
+    php_flag display_errors off
+    php_flag log_errors on
+    php_value error_log logs/php_errors.log
+    php_value max_execution_time 60
+    php_value max_input_time 60
+    php_value memory_limit 128M
+    php_value post_max_size 20M
+    php_value upload_max_filesize 10M
+</IfModule>
